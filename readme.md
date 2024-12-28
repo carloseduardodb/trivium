@@ -39,6 +39,32 @@ go mod tidy
 go build
 ```
 
+## Build and Run with Docker
+
+To build and run the application using Docker, follow the steps below:
+
+### Prerequisites
+
+- Make sure you have Docker installed on your machine.
+
+### Build the Image
+
+Run the following command in the root of the project:
+
+```bash
+docker build -t crypto-finance .
+```
+
+### Run the Container
+
+After building the image, you can run the container with the following command:
+
+```bash
+docker run -p 8080:8080 -p 3000:3000 crypto-finance
+```
+
+This will expose the backend on port 8080 and the frontend on port 3000.
+
 ## Usage
 
 Run the application:
