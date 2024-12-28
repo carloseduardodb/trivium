@@ -1,12 +1,17 @@
 package http
 
 import (
+	"crypto-finance/src/domain/repository"
 	"crypto-finance/src/infra/http/impl"
 
 	"github.com/google/wire"
 )
 
+func NewFirebaseRepository() repository.FirebaseRepository {
+	return impl.NewFirebaseImpl()
+}
+
 var HttpModule = wire.NewSet(
-	impl.NewFirebaseRepository,
+	NewFirebaseRepository,
 	impl.NewFirebaseImpl,
 )
