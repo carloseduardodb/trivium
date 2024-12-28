@@ -1,22 +1,26 @@
-# Usa a imagem base oficial do Go
 FROM golang:1.21 AS builder
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
-RUN go mod download
+COPY . .
 
-COPY . ./
+RUN go build -o backend ./cmd/main.go
 
-RUN go build -o main .
+FROM node:lts AS frontend-builder
+WORKDIR /frontend
+COPY public/package.json ./
+COPY public/yarn.lock ./
+RUN npm install
+COPY public ./
+RUN npm run build
 
 FROM alpine:latest
 
-WORKDIR /root/
+COPY --from=builder /app/backend ./
 
-COPY --from=builder /app/main .
+COPY --from=frontend-builder /frontend/dist ./public
 
 EXPOSE 8080
+EXPOSE 3000
 
-CMD ["./main"]
+CMD ["./backend"]
