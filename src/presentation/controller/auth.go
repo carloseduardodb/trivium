@@ -6,11 +6,21 @@ import (
 	"fmt"
 )
 
-func Auth(input interface{}) (interface{}, error) {
+type AuthController struct {
+	authUsecase *usecase.AuthUseCase
+}
+
+func NewAuthController(authUsecase *usecase.AuthUseCase) *AuthController {
+	return &AuthController{
+		authUsecase: authUsecase,
+	}
+}
+
+func (c *AuthController) Auth(input interface{}) (interface{}, error) {
 	req, ok := input.(*dto.Auth)
 	if !ok {
 		return nil, fmt.Errorf("invalid input format")
 	}
 
-	return usecase.Auth(req)
+	return c.authUsecase.Auth(req)
 }
