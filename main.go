@@ -1,12 +1,8 @@
 package main
 
 import (
-	"crypto-finance/src/infra/http"
-	"crypto-finance/src/presentation/route"
 	"crypto-finance/src/util"
 	"log"
-
-	"github.com/google/wire"
 )
 
 func main() {
@@ -14,9 +10,7 @@ func main() {
 		log.Fatalf("Erro crítico: %v", err)
 	}
 
-	wire.Build(http.HttpModule)
-
-	if err := route.InitRoutes(); err != nil {
-		log.Fatalf("Erro crítico: %v", err)
+	if err := InitializeApp(); err != nil {
+		log.Fatalf("Erro ao iniciar o servidor: %v", err)
 	}
 }

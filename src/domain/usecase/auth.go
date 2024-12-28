@@ -18,7 +18,10 @@ func NewAuthUseCase(firebaseRepo repository.FirebaseRepository) *AuthUseCase {
 }
 
 func (a *AuthUseCase) Auth(auth *dto.Auth) (*class.User, error) {
-	a.firebaseRepo.ConvertTokenInUser(auth.Token)
+	_, err := a.firebaseRepo.ConvertTokenInUser(auth.Token)
+	if err != nil {
+		return nil, err
+	}
 
 	cUser, err := class.NewUser("Carlos", "Yj6tZ@example.com", "photoPath")
 	if err != nil {

@@ -10,11 +10,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func InitRoutes() error {
+func InitRoutes(authController *controller.AuthController, statusController *controller.StatusController) error {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/check-status", controller.Status).Methods(http.MethodGet)
-	router.HandleFunc("/auth", middleware.JsonMiddleware(controller.Auth, &dto.Auth{})).Methods(http.MethodPost)
+	router.HandleFunc("/check-status", statusController.Status).Methods(http.MethodGet)
+	router.HandleFunc("/auth", middleware.JsonMiddleware(authController.Auth, &dto.Auth{})).Methods(http.MethodPost)
 
 	protected := router.PathPrefix("/auth").Subrouter()
 	protected.Use(middleware.FirebaseAuthMiddleware())
