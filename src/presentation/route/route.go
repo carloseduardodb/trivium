@@ -1,28 +1,26 @@
+// route/route.go
 package route
 
 import (
 	"crypto-finance/src/presentation/controller"
 	"crypto-finance/src/presentation/dto"
 	"crypto-finance/src/presentation/middleware"
+	presentation_repository "crypto-finance/src/presentation/repository"
 	"fmt"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
 
-func InitRoutes(authController *controller.AuthController, statusController *controller.StatusController) error {
-	router := mux.NewRouter()
+func NewRoutes(
+	router presentation_repository.HttpRepository,
+	authController *controller.AuthController,
+	statusController *controller.StatusController,
+) error {
+	router.HandleFunc("/check-status", statusController.Status, http.MethodGet)
+	router.HandleFunc("/auth", middleware.JsonMiddleware(authController.Auth, &dto.Auth{}), http.MethodPost)
 
-	router.HandleFunc("/check-status", statusController.Status).Methods(http.MethodGet)
-	router.HandleFunc("/auth", middleware.JsonMiddleware(authController.Auth, &dto.Auth{})).Methods(http.MethodPost)
-
-	protected := router.PathPrefix("/auth").Subrouter()
+	protected := router.SubRouter("/auth")
 	protected.Use(middleware.FirebaseAuthMiddleware())
 
 	fmt.Println("Servidor iniciado em http://127.0.0.1:3000")
-	if err := http.ListenAndServe("127.0.0.1:3000", router); err != nil {
-		return fmt.Errorf("erro ao iniciar o servidor: %w", err)
-	}
-
-	return nil
+	return router.Start("127.0.0.1:3000")
 }
