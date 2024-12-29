@@ -9,19 +9,40 @@ package main
 import (
 	"crypto-finance/src/domain/usecase"
 	"crypto-finance/src/infra"
-	"crypto-finance/src/infra/http/impl"
 	"crypto-finance/src/presentation/controller"
+	"crypto-finance/src/presentation/repository"
 	"crypto-finance/src/presentation/route"
 )
 
 // Injectors from wire.go:
 
-func InitializeApp() error {
-	httpRepository := impl.NewHttpRouter()
+func initializeApp() (*App, error) {
+	httpRepository := infra.NewHttpRepository()
 	firebaseRepository := infra.NewFirebaseRepository()
 	authUseCase := usecase.NewAuthUseCase(firebaseRepository)
 	authController := controller.NewAuthController(authUseCase)
 	statusController := controller.NewStatusController()
-	error2 := route.NewRoutes(httpRepository, authController, statusController)
-	return error2
+	app := &App{
+		Router:           httpRepository,
+		AuthController:   authController,
+		StatusController: statusController,
+	}
+	return app, nil
+}
+
+// wire.go:
+
+type App struct {
+	Router           presentation_repository.HttpRepository
+	AuthController   *controller.AuthController
+	StatusController *controller.StatusController
+}
+
+func InitializeApp() error {
+	app, err := initializeApp()
+	if err != nil {
+		return err
+	}
+
+	return route.NewRoutes(app.Router, app.AuthController, app.StatusController)
 }

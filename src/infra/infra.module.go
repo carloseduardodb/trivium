@@ -13,12 +13,10 @@ func NewFirebaseRepository() repository.FirebaseRepository {
 }
 
 func NewHttpRepository() presentation_repository.HttpRepository {
-	return impl.NewHttpRouter()
+	return impl.NewHttpImpl()
 }
 
 var InfraModule = wire.NewSet(
 	NewFirebaseRepository,
-	impl.NewFirebaseImpl,
 	NewHttpRepository,
-	impl.NewHttpRouter,
 )
