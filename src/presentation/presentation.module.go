@@ -18,16 +18,16 @@ type AppServer struct {
 	Router           presentation_repository.HttpRepository
 }
 
-func (a *AppServer) Start() error {
-	return route.NewRoutes(a.AuthController, a.StatusController, a.Router)
-}
-
 func NewAppServer(auth *controller.AuthController, status *controller.StatusController, router presentation_repository.HttpRepository) *AppServer {
 	return &AppServer{
 		AuthController:   auth,
 		StatusController: status,
 		Router:           router,
 	}
+}
+
+func (a *AppServer) Start() error {
+	return route.NewRoutes(a.AuthController, a.StatusController, a.Router)
 }
 
 var PresentationModule = wire.NewSet(
