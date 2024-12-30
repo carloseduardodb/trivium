@@ -11,7 +11,6 @@ import (
 	"crypto-finance/src/infra"
 	"crypto-finance/src/presentation/controller"
 	"crypto-finance/src/presentation/repository"
-	"crypto-finance/src/presentation/route"
 )
 
 // Injectors from wire.go:
@@ -39,10 +38,10 @@ type App struct {
 }
 
 func InitializeApp() error {
-	app, err := initializeApp()
+	_, err := initializeApp()
 	if err != nil {
 		return err
 	}
 
-	return route.NewRoutes(app.Router, app.AuthController, app.StatusController)
+	return nil
 }

@@ -6,7 +6,6 @@ package main
 // 	"crypto-finance/src/presentation"
 // 	"crypto-finance/src/presentation/controller"
 // 	presentation_repository "crypto-finance/src/presentation/repository"
-// 	"crypto-finance/src/presentation/route"
 
 // 	"github.com/google/wire"
 // )
@@ -18,12 +17,12 @@ package main
 // }
 
 // func InitializeApp() error {
-// 	app, err := initializeApp()
+// 	_, err := initializeApp()
 // 	if err != nil {
 // 		return err
 // 	}
 
-// 	return route.NewRoutes(app.Router, app.AuthController, app.StatusController)
+// 	return nil
 // }
 
 // func initializeApp() (*App, error) {
