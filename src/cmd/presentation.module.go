@@ -1,4 +1,4 @@
-package presentation
+package cmd
 
 import (
 	"crypto-finance/src/presentation/controller"

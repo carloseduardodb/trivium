@@ -1,22 +1,20 @@
 package main
 
 // import (
-// 	"crypto-finance/src/domain"
-// 	"crypto-finance/src/infra"
-// 	"crypto-finance/src/presentation"
+// 	"crypto-finance/src/cmd"
 
 // 	"github.com/google/wire"
 // )
 
 // type App struct {
-// 	Server presentation.ServerStarter
+// 	Server cmd.ServerStarter
 // }
 
 // func initializeApp() (*App, error) {
 // 	panic(wire.Build(
-// 		infra.InfraModule,
-// 		presentation.PresentationModule,
-// 		domain.DomainModule,
+// 		cmd.InfraModule,
+// 		cmd.PresentationModule,
+// 		cmd.DomainModule,
 // 		wire.Struct(new(App), "*"),
 // 	))
 // }

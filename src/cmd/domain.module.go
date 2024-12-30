@@ -1,4 +1,4 @@
-package domain
+package cmd
 
 import (
 	"crypto-finance/src/domain/usecase"

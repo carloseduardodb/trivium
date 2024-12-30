@@ -1,4 +1,4 @@
-package infra
+package cmd
 
 import (
 	"crypto-finance/src/domain/repository"

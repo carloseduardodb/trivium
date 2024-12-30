@@ -7,25 +7,20 @@
 package main
 
 import (
+	"crypto-finance/src/cmd"
 	"crypto-finance/src/domain/usecase"
-	"crypto-finance/src/infra"
-	"crypto-finance/src/presentation"
 	"crypto-finance/src/presentation/controller"
-)
-
-import (
-	_ "crypto-finance/src/presentation"
 )
 
 // Injectors from wire.go:
 
 func initializeApp() (*App, error) {
-	firebaseRepository := infra.NewFirebaseRepository()
+	firebaseRepository := cmd.NewFirebaseRepository()
 	authUseCase := usecase.NewAuthUseCase(firebaseRepository)
 	authController := controller.NewAuthController(authUseCase)
 	statusController := controller.NewStatusController()
-	httpRepository := infra.NewHttpRepository()
-	appServer := presentation.NewAppServer(authController, statusController, httpRepository)
+	httpRepository := cmd.NewHttpRepository()
+	appServer := cmd.NewAppServer(authController, statusController, httpRepository)
 	app := &App{
 		Server: appServer,
 	}
@@ -35,5 +30,5 @@ func initializeApp() (*App, error) {
 // wire.go:
 
 type App struct {
-	Server presentation.ServerStarter
+	Server cmd.ServerStarter
 }
