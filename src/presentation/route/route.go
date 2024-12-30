@@ -12,8 +12,6 @@ func NewRoutes(
 	statusController *controller.StatusController,
 	router presentation_repository.HttpRepository) error {
 
-	fmt.Println("Iniciando rotas")
-
 	authController.SetupRoutes(router)
 	statusController.SetupRoutes(router)
 
