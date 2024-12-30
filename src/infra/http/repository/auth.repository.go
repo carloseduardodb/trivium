@@ -1,19 +1,19 @@
-package impl
+package repository
 
 import (
 	"context"
-	"crypto-finance/src/domain/class"
+	"crypto-finance/src/domain/entity"
 	"crypto-finance/src/util"
 	"errors"
 )
 
-type FirebaseImpl struct{}
+type AuthRepository struct{}
 
-func NewFirebaseImpl() *FirebaseImpl {
-	return &FirebaseImpl{}
+func NewAuthRepository() *AuthRepository {
+	return &AuthRepository{}
 }
 
-func (f *FirebaseImpl) ValidateToken(token string) (bool, error) {
+func (f *AuthRepository) ValidateToken(token string) (bool, error) {
 	if token == "" {
 		return false, errors.New("token não pode ser vazio")
 	}
@@ -26,7 +26,7 @@ func (f *FirebaseImpl) ValidateToken(token string) (bool, error) {
 	return true, nil
 }
 
-func (f *FirebaseImpl) ConvertTokenInUser(token string) (*class.User, error) {
+func (f *AuthRepository) ConvertTokenInUser(token string) (*entity.User, error) {
 	if token == "" {
 		return nil, errors.New("token não pode ser vazio")
 	}
@@ -41,7 +41,7 @@ func (f *FirebaseImpl) ConvertTokenInUser(token string) (*class.User, error) {
 		return nil, errors.New("erro ao obter informações do usuário: " + err.Error())
 	}
 
-	user := &class.User{
+	user := &entity.User{
 		Email:     userRecord.Email,
 		Name:      userRecord.DisplayName,
 		PhotoPath: userRecord.PhotoURL,

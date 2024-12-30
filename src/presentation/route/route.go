@@ -3,12 +3,12 @@ package route
 
 import (
 	"crypto-finance/src/presentation/controller"
-	presentation_repository "crypto-finance/src/presentation/repository"
+	presentation_repositorier "crypto-finance/src/presentation/repositorier"
 	"fmt"
 )
 
 func NewRoutes(
-	router presentation_repository.HttpRepository,
+	router presentation_repositorier.HttpRepositorier,
 	authController *controller.AuthController,
 	statusController *controller.StatusController,
 ) error {

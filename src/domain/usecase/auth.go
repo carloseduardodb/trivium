@@ -1,29 +1,29 @@
 package usecase
 
 import (
-	"crypto-finance/src/domain/class"
-	"crypto-finance/src/domain/repository"
+	"crypto-finance/src/domain/entity"
+	"crypto-finance/src/domain/repositorier"
 	"crypto-finance/src/presentation/dto"
 	"fmt"
 )
 
 type AuthUseCase struct {
-	firebaseRepo repository.FirebaseRepository
+	firebaseRepo repositorier.FirebaseRepositorier
 }
 
-func NewAuthUseCase(firebaseRepo repository.FirebaseRepository) *AuthUseCase {
+func NewAuthUseCase(firebaseRepo repositorier.FirebaseRepositorier) *AuthUseCase {
 	return &AuthUseCase{
 		firebaseRepo: firebaseRepo,
 	}
 }
 
-func (a *AuthUseCase) Auth(auth *dto.Auth) (*class.User, error) {
+func (a *AuthUseCase) Auth(auth *dto.Auth) (*entity.User, error) {
 	_, err := a.firebaseRepo.ConvertTokenInUser(auth.Token)
 	if err != nil {
 		return nil, err
 	}
 
-	cUser, err := class.NewUser("Carlos", "Yj6tZ@example.com", "photoPath")
+	cUser, err := entity.NewUser("Carlos", "Yj6tZ@example.com", "photoPath")
 	if err != nil {
 		return nil, err
 	}

@@ -1,7 +1,7 @@
 package controller
 
 import (
-	presentation_repository "crypto-finance/src/presentation/repository"
+	presentation_repositorier "crypto-finance/src/presentation/repositorier"
 	"net/http"
 )
 
@@ -11,7 +11,7 @@ func NewStatusController() *StatusController {
 	return &StatusController{}
 }
 
-func (s *StatusController) SetupRoutes(router presentation_repository.HttpRepository) {
+func (s *StatusController) SetupRoutes(router presentation_repositorier.HttpRepositorier) {
 	router.HandleFunc("/check-status", s.Status, http.MethodGet)
 }
 

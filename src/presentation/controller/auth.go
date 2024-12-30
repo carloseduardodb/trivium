@@ -4,7 +4,7 @@ import (
 	"crypto-finance/src/domain/usecase"
 	"crypto-finance/src/presentation/dto"
 	"crypto-finance/src/presentation/middleware"
-	presentation_repository "crypto-finance/src/presentation/repository"
+	presentation_repositorier "crypto-finance/src/presentation/repositorier"
 	"fmt"
 	"net/http"
 )
@@ -19,7 +19,7 @@ func NewAuthController(authUsecase *usecase.AuthUseCase) *AuthController {
 	}
 }
 
-func (a *AuthController) SetupRoutes(router presentation_repository.HttpRepository) {
+func (a *AuthController) SetupRoutes(router presentation_repositorier.HttpRepositorier) {
 	router.HandleFunc("/auth", middleware.JsonMiddleware(a.Auth, &dto.Auth{}), http.MethodPost)
 
 	protected := router.SubRouter("/auth")

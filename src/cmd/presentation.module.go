@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"crypto-finance/src/presentation/controller"
-	presentation_repository "crypto-finance/src/presentation/repository"
+	presentation_repositorier "crypto-finance/src/presentation/repositorier"
 	"crypto-finance/src/presentation/route"
 
 	"github.com/google/wire"
@@ -15,10 +15,10 @@ type ServerStarter interface {
 type AppServer struct {
 	AuthController   *controller.AuthController
 	StatusController *controller.StatusController
-	Router           presentation_repository.HttpRepository
+	Router           presentation_repositorier.HttpRepositorier
 }
 
-func NewAppServer(auth *controller.AuthController, status *controller.StatusController, router presentation_repository.HttpRepository) *AppServer {
+func NewAppServer(auth *controller.AuthController, status *controller.StatusController, router presentation_repositorier.HttpRepositorier) *AppServer {
 	return &AppServer{
 		AuthController:   auth,
 		StatusController: status,
