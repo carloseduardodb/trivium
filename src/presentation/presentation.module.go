@@ -1,19 +1,38 @@
 package presentation
 
 import (
-	"crypto-finance/src/infra"
 	"crypto-finance/src/presentation/controller"
+	presentation_repository "crypto-finance/src/presentation/repository"
 	"crypto-finance/src/presentation/route"
 
 	"github.com/google/wire"
 )
 
-func NewRoutes(authController *controller.AuthController, statusController *controller.StatusController) error {
-	return route.NewRoutes(authController, statusController, infra.NewHttpRepository())
+type ServerStarter interface {
+	Start() error
+}
+
+type AppServer struct {
+	AuthController   *controller.AuthController
+	StatusController *controller.StatusController
+	Router           presentation_repository.HttpRepository
+}
+
+func (a *AppServer) Start() error {
+	return route.NewRoutes(a.AuthController, a.StatusController, a.Router)
+}
+
+func NewAppServer(auth *controller.AuthController, status *controller.StatusController, router presentation_repository.HttpRepository) *AppServer {
+	return &AppServer{
+		AuthController:   auth,
+		StatusController: status,
+		Router:           router,
+	}
 }
 
 var PresentationModule = wire.NewSet(
 	controller.NewAuthController,
 	controller.NewStatusController,
-	NewRoutes,
+	NewAppServer,
+	wire.Bind(new(ServerStarter), new(*AppServer)),
 )

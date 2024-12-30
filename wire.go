@@ -4,25 +4,12 @@ package main
 // 	"crypto-finance/src/domain"
 // 	"crypto-finance/src/infra"
 // 	"crypto-finance/src/presentation"
-// 	"crypto-finance/src/presentation/controller"
-// 	presentation_repository "crypto-finance/src/presentation/repository"
 
 // 	"github.com/google/wire"
 // )
 
 // type App struct {
-// 	Router           presentation_repository.HttpRepository
-// 	AuthController   *controller.AuthController
-// 	StatusController *controller.StatusController
-// }
-
-// func InitializeApp() error {
-// 	_, err := initializeApp()
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	return nil
+// 	Server presentation.ServerStarter
 // }
 
 // func initializeApp() (*App, error) {
