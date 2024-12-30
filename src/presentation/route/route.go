@@ -8,10 +8,10 @@ import (
 )
 
 func NewRoutes(
+	router presentation_repository.HttpRepository,
 	authController *controller.AuthController,
 	statusController *controller.StatusController,
-	router presentation_repository.HttpRepository) error {
-
+) error {
 	authController.SetupRoutes(router)
 	statusController.SetupRoutes(router)
 

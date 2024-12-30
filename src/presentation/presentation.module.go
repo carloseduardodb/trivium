@@ -27,7 +27,7 @@ func NewAppServer(auth *controller.AuthController, status *controller.StatusCont
 }
 
 func (a *AppServer) Start() error {
-	return route.NewRoutes(a.AuthController, a.StatusController, a.Router)
+	return route.NewRoutes(a.Router, a.AuthController, a.StatusController)
 }
 
 var PresentationModule = wire.NewSet(
