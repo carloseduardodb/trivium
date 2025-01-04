@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import { Sidebar } from "../components/Sidebar";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -15,6 +16,7 @@ const DashboardLayout = () => {
       />
       <div className="w-full overflow-y-auto">
         <Outlet />
+        <Toaster />
       </div>
     </div>
   );
