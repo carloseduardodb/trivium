@@ -13,14 +13,12 @@ export const AddCrypto = () => {
       name: "Bitcoin",
       price: 45678.9,
       change: 3.5,
-      balance: 0.0001,
     },
     {
       symbol: "ETH",
       name: "Ethereum",
       price: 3245.67,
       change: 2.1,
-      balance: 0.05,
     },
   ];
 
